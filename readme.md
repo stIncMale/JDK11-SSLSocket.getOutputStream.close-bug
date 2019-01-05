@@ -9,7 +9,7 @@ OS: ```macOS 10.13.6 (17G4015)```
 * ```openjdk 11.0.1 2018-10-16```, ```OpenJDK Runtime Environment 18.9 (build 11.0.1+13)```, ```OpenJDK 64-Bit Server VM 18.9 (build 11.0.1+13, mixed mode)```
 * ```openjdk 11 2018-09-25```, ```OpenJDK Runtime Environment 18.9 (build 11+28)```, ```OpenJDK 64-Bit Server VM 18.9 (build 11+28, mixed mode)```
 ### JDKs without this bug
-10, 9, 8 are fine:
+10, 9, 8:
 * ```openjdk version "10.0.2" 2018-07-17```, ```OpenJDK Runtime Environment 18.3 (build 10.0.2+13)```, ```OpenJDK 64-Bit Server VM 18.3 (build 10.0.2+13, mixed mode)```
 * ```openjdk version "10.0.1" 2018-04-17```, ```OpenJDK Runtime Environment (build 10.0.1+10)```, ```OpenJDK 64-Bit Server VM (build 10.0.1+10, mixed mode)```
 * ```openjdk version "10" 2018-03-20```, ```OpenJDK Runtime Environment 18.3 (build 10+46)```, ```OpenJDK 64-Bit Server VM 18.3 (build 10+46, mixed mode)```
