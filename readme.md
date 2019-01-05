@@ -42,6 +42,8 @@ Client 🔌 Still waiting for data from the server...
 ```
 #### Explanation
 The client (specifically ```clientSideReadingThread```) is blocked waiting for data from the server that never sends any. Then client tries to close its socket via ```SSLSocket.getOutputStream().close()``` and fails (```SSLSocket.isClosed()``` returns false). As a result the client stays infinitely blocked.
+
+A server-side ```SSLSocket``` obtained via ```SSLServerSocket.accept()``` has the same bug, I tested this separately.
 #### Run without TLS
 One can run the example without TLS and see that ```Socket.getOutputStream().close()``` works as expected (closes the socket):
 ```
