@@ -1,6 +1,6 @@
 # JDK11-SSLSocket.getOutputStream.close-bug
 A minimal working example that reproduces
-```OpenJDK 11.0.1``` bug which manifests itself in ```SSLSocket.getOutputStream().close()``` not closing the socket, which contradicts [the specification of ```SSLSocket.getOutputStream``` method](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/Socket.html#getOutputStream()): _Closing the returned OutputStream will close the associated socket_. This example not only shows the broken behaviour but also shows a situation in which the broken behaviour causes an application to hang. The problem was reported to Oracle via https://bugreport.java.com (an internal review ID: 9058835).
+```OpenJDK 11.0.1``` bug which manifests itself in ```SSLSocket.getOutputStream().close()``` not closing the socket, which contradicts [the specification of ```SSLSocket.getOutputStream``` method](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/Socket.html#getOutputStream()): _Closing the returned OutputStream will close the associated socket_. This example not only shows the broken behaviour but also shows a situation in which the broken behaviour causes an application to hang. The problem was reported to Oracle via https://bugreport.java.com and was accepted: https://bugs.openjdk.java.net/browse/JDK-8216326, https://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8216326.
 
 ## Environment
 OS: ```macOS 10.13.6 (17G4015)```
@@ -43,7 +43,7 @@ Client 🔌 Still waiting for data from the server...
 #### Explanation
 The client (specifically ```clientSideReadingThread```) is blocked waiting for data from the server that never sends any. Then client tries to close its socket via ```SSLSocket.getOutputStream().close()``` and fails (```SSLSocket.isClosed()``` returns false). As a result the client stays infinitely blocked.
 
-A server-side ```SSLSocket``` obtained via ```SSLServerSocket.accept()``` has the same bug, I tested this separately.
+A server-side ```SSLSocket``` obtained via ```SSLServerSocket.accept()``` has the same bug, I tested this separately. ```SSLSocket.getInputStream().close()``` also does not close the associated ```SSLSocket```, and the code in the example can be trivially modified to observe this.
 #### Run without TLS
 One can run the example without TLS and see that ```Socket.getOutputStream().close()``` works as expected (closes the socket):
 ```
